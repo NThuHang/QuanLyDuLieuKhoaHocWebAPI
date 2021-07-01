@@ -73,22 +73,5 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             }
         }
 
-        // Lấy danh sách menu theo tài khoản
-        public UserModel GetMenu(string id)
-        {
-            string msgError = "";
-            try
-            {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "lay_menu_theo_user",
-                     "@UserId", id);
-                if (!string.IsNullOrEmpty(msgError))
-                    throw new Exception(msgError);
-                return dt.ConvertTo<UserModel>().FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

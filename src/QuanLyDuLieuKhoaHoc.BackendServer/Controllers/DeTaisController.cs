@@ -40,6 +40,16 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
             return _DeTaiBLL.GetDatabyGV(id);
         }
 
+        [Route("get-by-vitri")]
+        [HttpPost]
+        public SoHuuDTModel GetDatabyVT([FromBody] Dictionary<string, object> formData)
+        {
+            var idDT = int.Parse(formData["idDT"].ToString());
+            string idGV = Convert.ToString(formData["idGV"]); 
+            var data = _DeTaiBLL.GetDatabyVT(idDT, idGV);
+            return data;
+        }
+
         [Route("create-detai")]
         [HttpPost]
         public DeTaiModel CreateItem([FromBody] DeTaiModel model)
@@ -50,20 +60,30 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
 
         [Route("create-gv-detai")]
         [HttpPost]
-        public DeTaiModel Create_GV_DT([FromBody] DeTaiModel model)
+        public SoHuuDTModel Create_GV_DT([FromBody] SoHuuDTModel model)
         {
-            _DeTaiBLL.Create_GV(model);
+            _DeTaiBLL.CreateGV(model);
             return model;
         }
 
         [Route("delete-detai")]
         [HttpPost]
-        public IActionResult DeleteUser([FromBody] Dictionary<string, object> formData)
+        public IActionResult Delete([FromBody] Dictionary<string, object> formData)
         {
-            string Id = "";
-            if (formData.Keys.Contains("Id") && !string.IsNullOrEmpty(Convert.ToString(formData["Id"])))
-            { Id = Convert.ToString(formData["Id"]); }
-            _DeTaiBLL.Delete(Id);
+            int id = 0;
+            if (formData.Keys.Contains("id") && Convert.ToInt32(formData["id"].ToString()) > 0)
+            { id = Convert.ToInt32(formData["id"].ToString()); }
+            _DeTaiBLL.Delete(id);
+            return Ok();
+        }
+
+        [Route("delete-gv-detai")]
+        [HttpPost]
+        public IActionResult DeleteGV([FromBody] Dictionary<string, object> formData)
+        {
+            var idDT = int.Parse(formData["idDT"].ToString());
+            string idGV = Convert.ToString(formData["idGV"]);
+            _DeTaiBLL.DeleteGV(idDT,idGV);
             return Ok();
         }
 
@@ -72,6 +92,14 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
         public DeTaiModel UpdateUser([FromBody] DeTaiModel model)
         {
             _DeTaiBLL.Update(model);
+            return model;
+        }
+
+        [Route("update-gv-detai")]
+        [HttpPost]
+        public SoHuuDTModel UpdateGV([FromBody] SoHuuDTModel model)
+        {
+            _DeTaiBLL.UpdateGV(model);
             return model;
         }
 
@@ -120,12 +148,12 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
 
         }
 
-        //[Route("tongsl")]
-        //[HttpGet]
-        //public int laytong()
-        //{
-        //    return _DeTaiBLL.GetTong();
-        //}
+        [Route("tongsl")]
+        [HttpGet]
+        public int laytong()
+        {
+            return _DeTaiBLL.GetTong();
+        }
 
         //[Route("tk-nam")]
         //[HttpPost]

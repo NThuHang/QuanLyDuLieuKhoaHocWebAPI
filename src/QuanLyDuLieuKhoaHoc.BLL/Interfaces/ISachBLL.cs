@@ -12,7 +12,8 @@ namespace QuanLyDuLieuKhoaHoc.BLL
         bool Update(SachModel model);
         bool Delete(string id);
         SachModel GetDatabyID(string id);
-        List<SachModel> Search(int pageIndex, int pageSize, out long total, string ten);
+        List<SachModel> GetDatabyGV(int id);
+        List<SachModel> Search(int pageIndex, int pageSize, out long total, string ten, string idGV);
         int GetTong();
     }
 }

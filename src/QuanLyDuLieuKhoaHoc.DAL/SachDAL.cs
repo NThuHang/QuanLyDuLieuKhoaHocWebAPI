@@ -20,7 +20,7 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "Sach_getAll");
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sach_getAll");
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 return dt.ConvertTo<SachModel>().ToList();
@@ -35,11 +35,28 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "Sach_getID",
-                     "@ID_BBao", id);
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sach_getID",
+                     "@ID", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 return dt.ConvertTo<SachModel>().FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<SachModel> GetDatabyGV(int id)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sach_getGV",
+                     "@ID", id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<SachModel>().ToList();
             }
             catch (Exception ex)
             {
@@ -52,9 +69,8 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             string msgError = "";
             try
             {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "Sach_create",
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sach_create",
                 "@Id", model.Id,
-                "@UserId", model.UserId,
                 "@TenSach", model.TenSach,
                 "@ViTri", model.ViTri,
                 "@NoiXB", model.NoiXB,
@@ -78,7 +94,7 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             string msgError = "";
             try
             {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "Sach_delete",
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sach_delete",
                 "@ID_BBao", id);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
@@ -96,9 +112,8 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             string msgError = "";
             try
             {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "Sach_update",
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sach_update",
                 "@Id", model.Id,
-                "@UserId", model.UserId,
                 "@TenSach", model.TenSach,
                 "@ViTri", model.ViTri,
                 "@NoiXB", model.NoiXB,
@@ -117,7 +132,7 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             }
         }
 
-        public List<SachModel> Search(int pageIndex, int pageSize, out long total, string ten)
+        public List<SachModel> Search(int pageIndex, int pageSize, out long total, string ten, string idGV)
         {
             string msgError = "";
             total = 0;
@@ -126,7 +141,8 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sach_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
-                     "@ten", ten);
+                    "@ten", ten,
+                    "@idGV", idGV);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];

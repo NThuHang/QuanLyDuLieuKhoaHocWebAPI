@@ -46,12 +46,12 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 throw ex;
             }
         }
-        public List<BaoChiModel> GetDataBao(string id)
+        public List<BaoChiModel> GetDataGV(string id)
         {
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "baochi_getTC", "@ID_TC", id);
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "BaoChi_getGV", "@ID", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 return dt.ConvertTo<BaoChiModel>().ToList();
@@ -128,7 +128,7 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             }
         }
 
-        public List<BaoChiModel> Search(int pageIndex, int pageSize, out long total, string ten)
+        public List<BaoChiModel> Search(int pageIndex, int pageSize, out long total, string ten, string idGV)
         {
             string msgError = "";
             total = 0;
@@ -137,7 +137,8 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "baochi_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
-                     "@ten", ten);
+                     "@ten", ten,
+                     "@idGV", idGV);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];

@@ -10,6 +10,5 @@ namespace QuanLyDuLieuKhoaHoc.BLL
         UserModel XacThuc(string username, string password);
         UserModel GetThongTin(string id);
         bool DoiMatKhau(UserModel model);
-        UserModel GetMenu(string id);
     }
 }

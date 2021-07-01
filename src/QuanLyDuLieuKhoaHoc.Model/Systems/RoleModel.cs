@@ -8,6 +8,6 @@ namespace QuanLyDuLieuKhoaHoc.Model
     {
         public string Id { get; set; }
 
-        public string Name { get; set; }
+        public string TenQuyen { get; set; }
     }
 }

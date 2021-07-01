@@ -28,7 +28,8 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
             var taikhoan = _userBLL.XacThuc(model.Username, model.Password);
 
             if (taikhoan == null)
-                return BadRequest(new { message = "Tên đăng nhập hoặc mật khẩu của bạn không chính xác!" });
+                return null;
+                    //BadRequest(new { message = "Tên đăng nhập hoặc mật khẩu của bạn không chính xác!" });
 
             return Ok(taikhoan);
         }

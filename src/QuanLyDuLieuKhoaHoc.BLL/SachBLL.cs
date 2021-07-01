@@ -36,9 +36,14 @@ namespace QuanLyDuLieuKhoaHoc.BLL
             return _res.GetDatabyID(id);
         }
 
-        public List<SachModel> Search(int pageIndex, int pageSize, out long total, string ten)
+        public List<SachModel> GetDatabyGV(int id)
         {
-            return _res.Search(pageIndex, pageSize, out total, ten);
+            return _res.GetDatabyGV(id);
+        }
+
+        public List<SachModel> Search(int pageIndex, int pageSize, out long total, string ten, string idGV)
+        {
+            return _res.Search(pageIndex, pageSize, out total, ten, idGV);
         }
         public int GetTong()
         {

@@ -22,23 +22,38 @@ namespace QuanLyDuLieuKhoaHoc.BLL
         {
             return _res.Create(model);
         }
-        public bool Create_GV(DeTaiModel model)
+        public bool CreateGV(SoHuuDTModel model)
         {
-            return _res.Create_GV(model);
+            return _res.CreateGV(model);
         }
         public bool Update(DeTaiModel model)
         {
             return _res.Update(model);
         }
-        public bool Delete(string id)
+        public bool UpdateGV(SoHuuDTModel model)
+        {
+            return _res.UpdateGV(model);
+        }
+        public bool Delete(int id)
         {
             return _res.Delete(id);
+        }
+
+        public bool DeleteGV(int idDT, string idGV)
+        {
+            return _res.DeleteGV(idDT,idGV);
         }
 
         public DeTaiModel GetDatabyID(int id)
         {
             return _res.GetDatabyID(id);
         }
+
+        public SoHuuDTModel GetDatabyVT(int idDT, string idGV)
+        {
+            return _res.GetDatabyVT(idDT,idGV);
+        }
+
 
         public List<DeTaiModel> GetDatabyGV(int id)
         {

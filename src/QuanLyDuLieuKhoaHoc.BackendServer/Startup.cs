@@ -81,6 +81,8 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer
             services.AddTransient<ICongTacBLL, CongTacBLL>();
             services.AddTransient<IBaoChiDAL, BaoChiDAL>();
             services.AddTransient<IBaoChiBLL, BaoChiBLL>();
+            services.AddTransient<ISachDAL, SachDAL>();
+            services.AddTransient<ISachBLL, SachBLL>();
             services.AddTransient<IDeTaiDAL, DeTaiDAL>();
             services.AddTransient<IDeTaiBLL, DeTaiBLL>();
 

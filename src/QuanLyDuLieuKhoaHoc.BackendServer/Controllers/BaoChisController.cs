@@ -37,11 +37,11 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
         {
             return _BaoChiBLL.GetDatabyID(id);
         }
-        [Route("get-by-bbao/{id}")]
+        [Route("get-by-gv/{id}")]
         [HttpGet]
-        public IEnumerable<BaoChiModel> GetDataBao(string id)
+        public IEnumerable<BaoChiModel> GetDataGV(string id)
         {
-            return _BaoChiBLL.GetDataBao(id);
+            return _BaoChiBLL.GetDataGV(id);
         }
 
         [Route("create-baochi")]
@@ -80,12 +80,17 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
                 string ten = "";
+                string idGV = "";
                 if (formData.Keys.Contains("ten") && !string.IsNullOrEmpty(Convert.ToString(formData["ten"])))
                 {
                     ten = Convert.ToString(formData["ten"]);
                 }
+                if (formData.Keys.Contains("idGV") && !string.IsNullOrEmpty(Convert.ToString(formData["idGV"])))
+                {
+                    idGV = Convert.ToString(formData["idGV"]);
+                }
                 long total = 0;
-                var data = _BaoChiBLL.Search(page, pageSize, out total, ten);
+                var data = _BaoChiBLL.Search(page, pageSize, out total, ten, idGV);
                 response.TotalItems = total;
                 response.Data = data;
                 response.Page = page;

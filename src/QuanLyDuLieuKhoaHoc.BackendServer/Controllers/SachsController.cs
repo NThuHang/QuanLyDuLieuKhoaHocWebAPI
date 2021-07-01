@@ -33,6 +33,13 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
             return _SachBLL.GetDatabyID(id);
         }
 
+        [Route("get-by-gv/{id}")]
+        [HttpGet]
+        public IEnumerable<SachModel> GetDatabyGV(int id)
+        {
+            return _SachBLL.GetDatabyGV(id);
+        }
+
         [Route("create-Sach")]
         [HttpPost]
         public SachModel CreateItem([FromBody] SachModel model)
@@ -46,7 +53,8 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
         public IActionResult DeleteUser([FromBody] Dictionary<string, object> formData)
         {
             string Id = "";
-            if (formData.Keys.Contains("Id") && !string.IsNullOrEmpty(Convert.ToString(formData["Id"]))) { Id = Convert.ToString(formData["Id"]); }
+            if (formData.Keys.Contains("Id") && !string.IsNullOrEmpty(Convert.ToString(formData["Id"]))) 
+            { Id = Convert.ToString(formData["Id"]); }
             _SachBLL.Delete(Id);
             return Ok();
         }
@@ -69,12 +77,17 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
                 string ten = "";
+                string idGV = "";
                 if (formData.Keys.Contains("ten") && !string.IsNullOrEmpty(Convert.ToString(formData["ten"])))
                 {
                     ten = Convert.ToString(formData["ten"]);
                 }
+                if (formData.Keys.Contains("idGV") && !string.IsNullOrEmpty(Convert.ToString(formData["idGV"])))
+                {
+                    idGV = Convert.ToString(formData["idGV"]);
+                }
                 long total = 0;
-                var data = _SachBLL.Search(page, pageSize, out total, ten);
+                var data = _SachBLL.Search(page, pageSize, out total, ten, idGV);
                 response.TotalItems = total;
                 response.Data = data;
                 response.Page = page;

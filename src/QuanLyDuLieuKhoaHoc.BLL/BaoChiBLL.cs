@@ -18,9 +18,9 @@ namespace QuanLyDuLieuKhoaHoc.BLL
         {
             return _res.GetData();
         }
-        public List<BaoChiModel> GetDataBao(string id)
+        public List<BaoChiModel> GetDataGV(string id)
         {
-            return _res.GetDataBao(id);
+            return _res.GetDataGV(id);
         }
         public bool Create(BaoChiModel model)
         {
@@ -40,9 +40,9 @@ namespace QuanLyDuLieuKhoaHoc.BLL
             return _res.GetDatabyID(id);
         }
 
-        public List<BaoChiModel> Search(int pageIndex, int pageSize, out long total, string ten)
+        public List<BaoChiModel> Search(int pageIndex, int pageSize, out long total, string ten, string idGV)
         {
-            return _res.Search(pageIndex, pageSize, out total, ten);
+            return _res.Search(pageIndex, pageSize, out total, ten, idGV);
         }
         public int GetTong()
         {

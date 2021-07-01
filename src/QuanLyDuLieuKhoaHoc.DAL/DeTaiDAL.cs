@@ -63,6 +63,24 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 throw ex;
             }
         }
+        public SoHuuDTModel GetDatabyVT(int idDT, string idGV)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "detai_getVTri",
+                     "@Id_DeTai", idDT,
+                     "@Id_GiangVien", idGV);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<SoHuuDTModel>().FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool Create(DeTaiModel model)
         {
             string msgError = "";
@@ -90,13 +108,13 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 throw ex;
             }
         }
-        public bool Create_GV(DeTaiModel model)
+        public bool CreateGV(SoHuuDTModel model)
         {
             string msgError = "";
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "detai_giangvien_create",
-                 "@Id", model.Id,
+                 "@Id_DeTai", model.Id_DeTai,
                 "@Id_GiangVien", model.Id_GiangVien,
                 "@ViTri", model.ViTri
                 );
@@ -111,13 +129,32 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 throw ex;
             }
         }
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             string msgError = "";
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "detai_delete",
                 "@ID", id);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public bool DeleteGV(int idDT, string idGV)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "detai_gv_delete",
+                "@Id_DeTai", idDT,
+                "@Id_GiangVien", idGV);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -144,6 +181,27 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 "@ThoiGianBD", model.ThoiGianBD,
                 "@ThoiGianKT", model.ThoiGianKT,
                 "@ThanhTich", model.ThanhTich);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool UpdateGV(SoHuuDTModel model)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "detai_giangvien_update",
+                 "@Id_DeTai", model.Id_DeTai,
+                "@Id_GiangVien", model.Id_GiangVien,
+                "@ViTri", model.ViTri);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -211,6 +269,8 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 throw ex;
             }
         }
+
+        
     }
 
 }

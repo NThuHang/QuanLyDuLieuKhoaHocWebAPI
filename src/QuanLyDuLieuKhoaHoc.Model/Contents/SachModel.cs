@@ -8,13 +8,13 @@ namespace QuanLyDuLieuKhoaHoc.Model
     {
         public int Id { get; set; }
 
-        public string UserId { get; set; }
+        public string Id_GiangVien { get; set; }
 
         public string TenSach { get; set; }
 
         public string LoaiSach { get; set; }
 
-        public string TacGia { get; set; }
+        public string TenGV { get; set; }
 
         public string ViTri { get; set; }
 

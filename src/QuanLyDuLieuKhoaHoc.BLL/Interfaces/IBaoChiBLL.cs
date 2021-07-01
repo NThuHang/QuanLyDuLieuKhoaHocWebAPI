@@ -9,12 +9,12 @@ namespace QuanLyDuLieuKhoaHoc.BLL
     {
         List<BaoChiModel> GetData();
 
-        List<BaoChiModel> GetDataBao(string id);
+        List<BaoChiModel> GetDataGV(string id);
         bool Create(BaoChiModel model);
         bool Update(BaoChiModel model);
         bool Delete(string id);
         BaoChiModel GetDatabyID(string id);
-        List<BaoChiModel> Search(int pageIndex, int pageSize, out long total, string ten);
+        List<BaoChiModel> Search(int pageIndex, int pageSize, out long total, string ten, string idGV);
         int GetTong();
     }
 }
