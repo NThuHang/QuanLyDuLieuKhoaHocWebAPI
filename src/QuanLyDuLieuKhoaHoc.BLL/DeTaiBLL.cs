@@ -18,6 +18,7 @@ namespace QuanLyDuLieuKhoaHoc.BLL
         {
             return _res.GetData();
         }
+
         public bool Create(DeTaiModel model)
         {
             return _res.Create(model);
@@ -54,7 +55,10 @@ namespace QuanLyDuLieuKhoaHoc.BLL
             return _res.GetDatabyVT(idDT,idGV);
         }
 
-
+        public DeTaiModel GetTopCuoi()
+        {
+            return _res.GetTopCuoi();
+        }
         public List<DeTaiModel> GetDatabyGV(int id)
         {
             return _res.GetDatabyGV(id);
@@ -63,6 +67,10 @@ namespace QuanLyDuLieuKhoaHoc.BLL
         public List<DeTaiModel> Search(int pageIndex, int pageSize, out long total, string ten, string idGV)
         {
             return _res.Search(pageIndex, pageSize, out total, ten, idGV);
+        }
+        public List<DeTaiModel> Search(int pageIndex, int pageSize, out long total, string ten)
+        {
+            return _res.Search(pageIndex, pageSize, out total, ten);
         }
         public List<DeTaiModel> DTGV_ViTri(string id, string vitri)
         {

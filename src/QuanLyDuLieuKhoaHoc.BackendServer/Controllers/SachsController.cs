@@ -100,6 +100,18 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
             return response;
         }
 
+        [Route("loai-sach")]
+        [HttpPost]
+        public IEnumerable<SachModel> DeTaiGV_ViTri([FromBody] Dictionary<string, object> formData)
+        {
+            string id = Convert.ToString(formData["Id"]);
+            string loai = Convert.ToString(formData["LoaiSach"]);
+            var data = _SachBLL.SGV_ViTri(id, loai);
+            return data;
+
+
+        }
+
         [Route("tongsl")]
         [HttpGet]
         public int laytong()

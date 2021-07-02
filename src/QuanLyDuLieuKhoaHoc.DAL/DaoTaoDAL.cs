@@ -77,7 +77,7 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "daotao_delete",
-                "@ID", id);
+                "@Id", id);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);

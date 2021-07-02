@@ -30,6 +30,21 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 throw ex;
             }
         }
+        public DeTaiModel GetTopCuoi()
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "detai_getAll");
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<DeTaiModel>().FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public DeTaiModel GetDatabyID(int id)
         {
             string msgError = "";
@@ -199,7 +214,7 @@ namespace QuanLyDuLieuKhoaHoc.DAL
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "detai_giangvien_update",
-                 "@Id_DeTai", model.Id_DeTai,
+                "@Id_DeTai", model.Id_DeTai,
                 "@Id_GiangVien", model.Id_GiangVien,
                 "@ViTri", model.ViTri);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
@@ -225,6 +240,27 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                     "@page_size", pageSize,
                     "@ten", ten,
                     "@idGV", idGV);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<DeTaiModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<DeTaiModel> Search(int pageIndex, int pageSize, out long total, string ten)
+        {
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "detai_search",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize,
+                    "@ten", ten);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];

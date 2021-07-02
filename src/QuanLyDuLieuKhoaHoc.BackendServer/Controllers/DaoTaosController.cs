@@ -43,9 +43,9 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
         [HttpPost]
         public IActionResult DeleteUser([FromBody] Dictionary<string, object> formData)
         {
-            string dt_id = "";
-            if (formData.Keys.Contains("dt_id") && !string.IsNullOrEmpty(Convert.ToString(formData["dt_id"]))) { dt_id = Convert.ToString(formData["dt_id"]); }
-            _DaoTaoBLL.Delete(dt_id);
+            string Id = "";
+            if (formData.Keys.Contains("Id") && !string.IsNullOrEmpty(Convert.ToString(formData["Id"]))) { Id = Convert.ToString(formData["Id"]); }
+            _DaoTaoBLL.Delete(Id);
             return Ok();
         }
 

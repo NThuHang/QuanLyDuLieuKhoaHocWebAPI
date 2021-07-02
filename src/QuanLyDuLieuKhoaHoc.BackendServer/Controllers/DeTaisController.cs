@@ -26,6 +26,13 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
             return _DeTaiBLL.GetData();
         }
 
+        [Route("get-them-cuoi")]
+        [HttpGet]
+        public DeTaiModel GetThemCuoi()
+        {
+            return _DeTaiBLL.GetTopCuoi();
+        }
+
         [Route("get-by-id/{id}")]
         [HttpGet]
         public DeTaiModel GetDatabyID(int id)
@@ -124,6 +131,34 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
                 }
                 long total = 0;
                 var data = _DeTaiBLL.Search(page, pageSize, out total, ten, idGV);
+                response.TotalItems = total;
+                response.Data = data;
+                response.Page = page;
+                response.PageSize = pageSize;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return response;
+        }
+
+        [Route("search-ds")]
+        [HttpPost]
+        public ResponseModel SearchDS([FromBody] Dictionary<string, object> formData)
+        {
+            var response = new ResponseModel();
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string ten = "";
+                if (formData.Keys.Contains("ten") && !string.IsNullOrEmpty(Convert.ToString(formData["ten"])))
+                {
+                    ten = Convert.ToString(formData["ten"]);
+                }
+                long total = 0;
+                var data = _DeTaiBLL.Search(page, pageSize, out total, ten);
                 response.TotalItems = total;
                 response.Data = data;
                 response.Page = page;

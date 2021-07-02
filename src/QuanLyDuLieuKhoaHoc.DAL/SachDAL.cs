@@ -153,5 +153,23 @@ namespace QuanLyDuLieuKhoaHoc.DAL
                 throw ex;
             }
         }
+
+        public List<SachModel> SGV_ViTri(string id, string loai)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "lay_sach_gv",
+                    "@Id", id,
+                    "@LoaiSach", loai);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<SachModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

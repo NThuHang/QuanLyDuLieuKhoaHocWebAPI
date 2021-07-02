@@ -45,6 +45,11 @@ namespace QuanLyDuLieuKhoaHoc.BLL
         {
             return _res.Search(pageIndex, pageSize, out total, ten, idGV);
         }
+
+        public List<SachModel> SGV_ViTri(string id, string loai)
+        {
+            return _res.SGV_ViTri(id, loai);
+        }
         public int GetTong()
         {
             var lay_tt = _res.GetData().ToList();

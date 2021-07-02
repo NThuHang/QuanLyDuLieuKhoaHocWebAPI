@@ -49,7 +49,8 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
         public IActionResult DeleteUser([FromBody] Dictionary<string, object> formData)
         {
             string Id = "";
-            if (formData.Keys.Contains("Id") && !string.IsNullOrEmpty(Convert.ToString(formData["Id"]))) { Id = Convert.ToString(formData["Id"]); }
+            if (formData.Keys.Contains("Id") && !string.IsNullOrEmpty(Convert.ToString(formData["Id"]))) 
+            { Id = Convert.ToString(formData["Id"]); }
             _BoMonBLL.Delete(Id);
             return Ok();
         }

@@ -29,7 +29,7 @@ namespace QuanLyDuLieuKhoaHoc.BackendServer.Controllers
 
             if (taikhoan == null)
                 return null;
-                    //BadRequest(new { message = "Tên đăng nhập hoặc mật khẩu của bạn không chính xác!" });
+                 BadRequest(new { message = "Tên đăng nhập hoặc mật khẩu của bạn không chính xác!" });
 
             return Ok(taikhoan);
         }

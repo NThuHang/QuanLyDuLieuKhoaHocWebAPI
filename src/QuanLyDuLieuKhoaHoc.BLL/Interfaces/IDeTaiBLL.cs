@@ -15,9 +15,11 @@ namespace QuanLyDuLieuKhoaHoc.BLL
         bool Delete(int id);
         bool DeleteGV(int idDT, string idGV);
         DeTaiModel GetDatabyID(int id);
+        DeTaiModel GetTopCuoi();
         List<DeTaiModel> GetDatabyGV(int id);
         SoHuuDTModel GetDatabyVT(int idDT, string idGV);
         List<DeTaiModel> Search(int pageIndex, int pageSize, out long total, string ten, string idGV);
+        List<DeTaiModel> Search(int pageIndex, int pageSize, out long total, string ten);
         List<DeTaiModel> DTGV_ViTri(string id, string vitri);
         int GetTong();
         List<DeTaiModel> TK_Nam(int nam, bool trangthai);
